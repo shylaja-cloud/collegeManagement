@@ -1,14 +1,14 @@
 version: 0.2
 env:
   secrets-manager:
-    LOGIN: prod/sonar/23237066:sonartoken
-    HOST: prod/sonar/23237066:HOST
-    Organization: prod/sonar/23237066:Organization
-    Project: prod/sonar/23237066:Project
+    LOGIN: prod/sonar/23205466:sonartoken
+    HOST: prod/sonar/23205466:HOST
+    Organization: prod/sonar/23205466:Organization
+    Project: prod/sonar/23205466:Project
 phases:
   install:
     runtime-versions:
-      java: corretto11
+      java: corretto17
       python: 3.11
   pre_build:
     commands:
@@ -16,9 +16,9 @@ phases:
       - pip install -r requirements.txt pylint
       - sudo yum update -y
       - yum install -y jq
-      - wget https://binaries.sonarsource.com/Distribution/sonar-scanner-cli/sonar-scanner-cli-4.7.0.2747-linux.zip
-      - unzip ./sonar-scanner-cli-4.7.0.2747-linux.zip
-      - export PATH=$PATH:./sonar-scanner-4.7.0.2747-linux/bin/
+      - wget https://binaries.sonarsource.com/Distribution/sonar-scanner-cli/sonar-scanner-cli-3.3.0.1492-linux.zip
+      - unzip ./sonar-scanner-cli-3.3.0.1492-linux.zip
+      - export PATH=$PATH:/sonar-scanner-3.3.0.1492-linux/bin/
   build:
     commands:
       - sonar-scanner -Dsonar.login=$LOGIN -Dsonar.host.url=$HOST -Dsonar.projectKey=$Project -Dsonar.organization=$Organization -DgeneratePom=true
